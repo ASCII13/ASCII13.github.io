@@ -340,17 +340,17 @@
             <div id="articleContent">
                 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。</p>
 <h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>在其中一个页面引用的时候，UI样式展示正常，但是在Console中却发现报了如下错误：</p>
-<p><img src="error_msg.PNG" alt=""></p>
+<p><img src="error_msg.png" alt=""></p>
 <p>引用代码如下：</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-area<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>topInfo<span class="token punctuation">"</span></span> <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{...myself}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view</span><span class="token punctuation">></span></span></code></pre>
 <p>当时我</p>
-<p><img src="question.JPEG" alt=""></p>
+<p><img src="question.jpeg" alt=""></p>
 <p>这是怎么回事儿？之前使用for进行列表渲染的时候明明一切正常，怎么到这里就报错了呢？再三检查写法没有问题之后，打开了官方文档，去寻求一波答案。</p>
 <h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>在翻看官方文档之后，发现了如下内容：</p>
-<p><img src="doc1.PNG" alt=""></p>
-<p><img src="doc2.PNG" alt=""></p>
+<p><img src="doc1.png" alt=""></p>
+<p><img src="doc2.png" alt=""></p>
 <p>大概流程就是：微信小程序一个page在加载的时候，首先会根据JSON文件生成一个界面，然后去加载WXML和WXSS，最后去加载js。</p>
 <p>到这里是不是就明白为啥报错了？</p>
 <p>我在onLoad中通过接口获取myself相关信息，但是页面渲染却是在它之前，而我又没有在Page的data中设置默认数据，这个时候，通过data传递的myself肯定是undefined，因此在WXML中通过wxs对数据进行处理的时候，wxs接收到的数据也是undefined。</p>
