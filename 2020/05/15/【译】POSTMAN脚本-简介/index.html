@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅析微信小程序wxs传值undefined, A Tester&#39;s Blog">
+    <meta name="keywords" content="【译】POSTMAN脚本-简介, A Tester&#39;s Blog">
     <meta name="description" content="编程 摄影 运动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅析微信小程序wxs传值undefined | A Tester&#39;s Blog</title>
+    <title>【译】POSTMAN脚本-简介 | A Tester&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/astronaut.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -175,12 +175,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅析微信小程序wxs传值undefined</h1>
+                    <h1 class="description center-align post-title">【译】POSTMAN脚本-简介</h1>
                 </div>
             </div>
         </div>
@@ -295,9 +295,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/POSTMAN/">
+                                <span class="chip bg-color">POSTMAN</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -305,8 +309,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
-                                小程序
+                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
+                                文档翻译
                             </a>
                         
                     </div>
@@ -318,7 +322,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-11
+                    2020-05-15
                 </div>
                 
 
@@ -334,30 +338,35 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。</p>
-<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>在其中一个页面引用的时候，UI样式展示正常，但是在Console中却发现报了如下错误：</p>
-<p><img src="error_msg.png" alt=""></p>
-<p>引用代码如下：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-area<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>topInfo<span class="token punctuation">"</span></span> <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{...myself}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view</span><span class="token punctuation">></span></span></code></pre>
-<p>当时我</p>
-<p><img src="question.jpeg" alt=""></p>
-<p>这是怎么回事儿？之前使用for进行列表渲染的时候明明一切正常，怎么到这里就报错了呢？再三检查写法没有问题之后，打开了官方文档，去寻求一波答案。</p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>在翻看官方文档之后，发现了如下内容：</p>
-<p><img src="doc1.png" alt=""></p>
-<p><img src="doc2.png" alt=""></p>
-<p>大概流程就是：微信小程序一个page在加载的时候，首先会根据JSON文件生成一个界面，然后去加载WXML和WXSS，最后去加载js。</p>
-<p>到这里是不是就明白为啥报错了？</p>
-<p>我在onLoad中通过接口获取myself相关信息，但是页面渲染却是在它之前，而我又没有在Page的data中设置默认数据，这个时候，通过data传递的myself肯定是undefined，因此在WXML中通过wxs对数据进行处理的时候，wxs接收到的数据也是undefined。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>原因既然知道了，那也就好解决了，只需要在加载的时候，加一个判断即可，代码如下：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-area<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">wx:</span>if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{myself !<span class="token punctuation">=</span><span class="token punctuation">=</span> undefined}}<span class="token punctuation">"</span></span>
-            <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>topInfo<span class="token punctuation">"</span></span>
-            <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{...myself}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view</span><span class="token punctuation">></span></span></code></pre>
-<p>再次运行查看，解决！</p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Postman拥有一个基于Node.js的强大运行时机制，该机制允许你动态的向请求和集合中添加操作。 这样的话，<br>你就可以编写测试套件（测试用例集合），构建包含动态参数的请求，在请求之间传递数据等。 你可以在一条<br>工作流中的两个事件之间添加可执行的JavaScript代码。</p>
+<ol>
+<li>写在Pre-request Script下的脚本，将在发送该请求之前执行。</li>
+<li>写在Tests下的脚本，将在请求完成之后执行。</li>
+</ol>
+<p><img src="01.png" alt=""></p>
+<p>你可以将pre-request脚本和tests脚本添加到集合，文件夹，集合中的请求或者是单独的请求中。</p>
+<h1 id="脚本的执行顺序"><a href="#脚本的执行顺序" class="headerlink" title="脚本的执行顺序"></a>脚本的执行顺序</h1><p>在Postman中，单个请求的脚本执行顺序如下所示：</p>
+<ul>
+<li>pre-request脚本在发送请求之前执行</li>
+<li>tests脚本在请求完成之后执行</li>
+</ul>
+<p><img src="02.png" alt=""></p>
+<p>对于一个集合中的每个请求，脚本将按以下顺序执行：</p>
+<ul>
+<li>与集合有关联的pre-request脚本将在该集合内的每一个请求之前执行。</li>
+<li>与文件夹有关联的pre-request脚本将在该文件夹内的每一个请求之前执行。</li>
+<li>与集合有关联的tests脚本将在该集合内的每一个请求之后执行。</li>
+<li>与文件夹有关联的tests脚本将在该文件夹内的每一个请求之后执行。</li>
+</ul>
+<p><img src="03.png" alt=""></p>
+<p>对于集合中的每个请求，脚本将始终根据以下层次结构运行：集合级脚本（如果有），文件夹级脚本（如果有），<br>请求级脚本（如果有）。 请注意，此执行顺序适用于pre-request脚本和tests脚本。</p>
+<p>例如，你有一个集合，该集合下有一个文件夹，文件夹下有两个请求，如下图：</p>
+<p><img src="04.png" alt=""></p>
+<p>如果你在集合，文件夹和请求的pre-request脚本和tests脚本中添加了日志，你可以在Postman的控制台<br>中清楚的看到执行顺序。</p>
+<p><img src="05.png" alt=""></p>
+<h1 id="如何运行"><a href="#如何运行" class="headerlink" title="如何运行"></a>如何运行</h1><p>Postman沙盒是一个JavaScript执行环境，你可以在编写请求的pre-request脚本和tests脚本时使用（Postman<br>和Newman都可以）。你在这些部分中编写的任何代码都将在沙盒中执行。</p>
+<h1 id="脚本调试"><a href="#脚本调试" class="headerlink" title="脚本调试"></a>脚本调试</h1><p>调试脚本可以在Pre-request Script选项卡或Tests选项卡下编写并在Postman Console中展示相关信息。</p>
+<h1 id="题外"><a href="#题外" class="headerlink" title="题外"></a>题外</h1><p>由于自己是第一次进行外文文档翻译，受限于英文水平，翻译时会尽力达到“信达雅”，如觉有不妥或难以理解<br>之处，可查看<a href="https://learning.postman.com/docs/postman/scripts/intro-to-scripts/" target="_blank" rel="noopener">官方文档</a>。在日后的文档翻译中，相信自己的翻译能力会逐渐提高。</p>
 
             </div>
             <hr/>
@@ -383,7 +392,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ascii13.github.io/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/">https://ascii13.github.io/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/</a>
+                    <a href="https://ascii13.github.io/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-%E7%AE%80%E4%BB%8B/">https://ascii13.github.io/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-%E7%AE%80%E4%BB%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -420,7 +429,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/POSTMAN/">
+                                    <span class="chip bg-color">POSTMAN</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -460,9 +473,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-%E7%AE%80%E4%BB%8B/">
                     <div class="card-image">
@@ -480,9 +494,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -495,6 +509,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -513,29 +528,33 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/07/hello-world/">
+                <a href="/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浅析微信小程序wxs传值undefined">
                         
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">浅析微信小程序wxs传值undefined</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-07
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-11
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            ASCII13
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="post-category">
+                                    小程序
+                                </a>
+                            
                             
                         </span>
                     </div>
