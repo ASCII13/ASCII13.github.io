@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="浅析微信小程序wxs传值undefined, A Tester&#39;s Blog">
+    <meta name="keywords" content="【译】POSTMAN脚本-test, A Tester&#39;s Blog">
     <meta name="description" content="编程 摄影 运动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>浅析微信小程序wxs传值undefined | A Tester&#39;s Blog</title>
+    <title>【译】POSTMAN脚本-test | A Tester&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/astronaut.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -175,12 +175,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">浅析微信小程序wxs传值undefined</h1>
+                    <h1 class="description center-align post-title">【译】POSTMAN脚本-test</h1>
                 </div>
             </div>
         </div>
@@ -297,8 +297,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                                <span class="chip bg-color">小程序</span>
+                            <a href="/tags/POSTMAN/">
+                                <span class="chip bg-color">POSTMAN</span>
                             </a>
                         
                     </div>
@@ -309,8 +309,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
-                                开发
+                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
+                                文档翻译
                             </a>
                         
                     </div>
@@ -322,7 +322,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-11
+                    2020-05-20
                 </div>
                 
 
@@ -338,30 +338,66 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。</p>
-<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>在其中一个页面引用的时候，UI样式展示正常，但是在Console中却发现报了如下错误：</p>
-<p><img src="error_msg.png" alt=""></p>
-<p>引用代码如下：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-area<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>topInfo<span class="token punctuation">"</span></span> <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{...myself}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view</span><span class="token punctuation">></span></span></code></pre>
-<p>当时我</p>
-<p><img src="question.jpeg" alt=""></p>
-<p>这是怎么回事儿？之前使用for进行列表渲染的时候明明一切正常，怎么到这里就报错了呢？再三检查写法没有问题之后，打开了官方文档，去寻求一波答案。</p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>在翻看官方文档之后，发现了如下内容：</p>
-<p><img src="doc1.png" alt=""></p>
-<p><img src="doc2.png" alt=""></p>
-<p>大概流程就是：微信小程序一个page在加载的时候，首先会根据JSON文件生成一个界面，然后去加载WXML和WXSS，最后去加载js。</p>
-<p>到这里是不是就明白为啥报错了？</p>
-<p>我在onLoad中通过接口获取myself相关信息，但是页面渲染却是在它之前，而我又没有在Page的data中设置默认数据，这个时候，通过data传递的myself肯定是undefined，因此在WXML中通过wxs对数据进行处理的时候，wxs接收到的数据也是undefined。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>原因既然知道了，那也就好解决了，只需要在加载的时候，加一个判断即可，代码如下：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>view</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>top-area<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span> <span class="token attr-name"><span class="token namespace">wx:</span>if</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{myself !<span class="token punctuation">=</span><span class="token punctuation">=</span> undefined}}<span class="token punctuation">"</span></span>
-            <span class="token attr-name">is</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>topInfo<span class="token punctuation">"</span></span>
-            <span class="token attr-name">data</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{{...myself}}<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>view</span><span class="token punctuation">></span></span></code></pre>
-<p>再次运行查看，解决！</p>
+                <p>你可以使用 JavaScript 为 Postman 接口请求编写 test 脚本。通过测试，你可以确保接口能够按照预期执行，确定服务之间的集成可靠运行，验证新开发的功能不会影响现有功能。当你的项目出现问题时，你还可以使用测试代码来帮助调试。</p>
+<blockquote>
+<p>例如，你可以编写一个让请求发送不完整数据的测试脚本去验证接口的错误处理。</p>
+</blockquote>
+<p>你可以将 test 脚本添加到单个请求，文件夹和集合中。你可以点击添加 Postman 预置的代码模版，然后根据你的需求去调整修改。</p>
+<p>要将 test 脚本添加到请求中，请打开请求，然后在 tests 选项中输入代码。tests 脚本将会在发送请求之后执行。你将在 response 旁边的 Test Result 选项中看到输出信息。</p>
+<p><img src="01.jpg" alt=""></p>
+<h1 id="编写test脚本"><a href="#编写test脚本" class="headerlink" title="编写test脚本"></a>编写test脚本</h1><p>你的 test 脚本可以使用动态变量对 response 数据执行测试断言并在请求之间传递数据。在 Tests 选项中，你可以手动输入 JavaScript 代码或者是使用代码编辑器右侧显示的代码模版。</p>
+<p>Tests 脚本将会在收到 response 之后运行，所以，在你点击发送时，Postman 将会在收到 response 数据之后运行你的 test 脚本。</p>
+<blockquote>
+<p>如果你想在发送请求之前执行代码，请使用 Pre-request 脚本。更多有关当你发送请求时，脚本如何执行的信息，请查看脚本简介。</p>
+</blockquote>
+<p>可以使用 pm.response 对象来测试验证请求返回的数据。你可以使用 pm.test 函数定义测试，该函数提供一个名称和一个返回值为布尔类型（true 或 false）的函数用来标示测试是否通过。你可以在断言中使用 ChaiJS BDD 语法和 pm.expect 来测试response内容。</p>
+<p>.test 函数的第一个参数是字符串，它将在测试结果中展示。因此你可以使用它来标示你的测试，并将测试结果展示给任何查看的人。</p>
+<p>例如：在 tests 选项中为任意请求输入以下内容用来测试响应状态码是否为200.</p>
+<pre class=" language-js"><code class="language-js">pm<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"status test"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><img src="02.jpg" alt=""></p>
+<p>点击发送你的请求，然后在请求结果中打开测试结果。选项标题显示一共运行了多少测试，通过了多少测试。你还可以切换通过，跳过和失败三个选项来筛选展示测试结果。</p>
+<p><img src="03.jpg" alt=""></p>
+<p>如果请求返回的状态码为200，则测试通过，否则测试失败。尝试修改测试脚本中的状态码，然后再次发送请求。</p>
+<p><img src="04.jpg" alt=""></p>
+<p>使用 pm.expect 可以为你的测试结果消息设置不同的格式-尝试使用各种消息格式以便于找到最适合自己的。</p>
+<p><img src="05.jpg" alt=""></p>
+<blockquote>
+<p>使用“<a href="https://documenter.getpostman.com/view/1559645/RzZFCGFR?version=latest&_ga=2.4995635.1679805856.1590363969-281470463.1590363969" target="_blank" rel="noopener">简介</a>”中的 Run in Postman 按钮来编写测试集合，以将包含一些示例测试脚本的模板导入Postman并进行代码试验。</p>
+</blockquote>
+<p>你的代码可以测试请求环境，如下例所示：</p>
+<pre class=" language-js"><code class="language-js">pm<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"environment to be production"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pm<span class="token punctuation">.</span><span class="token function">expect</span><span class="token punctuation">(</span>pm<span class="token punctuation">.</span>environment<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token string">"env"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">"production"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>你可以使用不同的语法来编写你认为易读而且适合你应用程序和测试逻辑的测试代码。</p>
+<pre class=" language-js"><code class="language-js">pm<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"response should be okay to process"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>not<span class="token punctuation">.</span>be<span class="token punctuation">.</span>error<span class="token punctuation">;</span>
+    pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">jsonBody</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>not<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">jsonBody</span><span class="token punctuation">(</span><span class="token string">"error"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>你可以根据返回数据格式调整语法来测试返回值是否有效。</p>
+<pre class=" language-js"><code class="language-js">pm<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token string">"response must be valid and have a body"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>ok<span class="token punctuation">;</span>
+     pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>withBody<span class="token punctuation">;</span>
+     pm<span class="token punctuation">.</span>response<span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>json<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Your scripts can include however many tests you need and will save along with the rest of your request detail when you click Save. If you share a collection, or publish documentation / the Run in Postman button, your test code will be included for anyone who views or imports your templates.</p>
+<p>你的脚本可以包含许多你需要的测试，当你点击保存时，这些脚本将与其它的请求详情一起保存。如果你分享了一个集合或发布了文档，任何查看或导入你模版的人都可以看到。（此部分由于英文水准不够，翻译的自觉不是很理想，多次修改也未达到自己满意的状态，附上原文。）</p>
+<h1 id="使用模版"><a href="#使用模版" class="headerlink" title="使用模版"></a>使用模版</h1><p>你将在 tests 选项下的代码编辑器右侧看到一些常用的测试代码模版。点击即可将其添加到编辑器中。模版可以加快你编写脚本的速度-你可以在添加模版后对其进行修改以满足自己的测试需求。</p>
+<p><img src="06.jpg" alt=""></p>
+<h1 id="测试集合和文件夹"><a href="#测试集合和文件夹" class="headerlink" title="测试集合和文件夹"></a>测试集合和文件夹</h1><p>你可以将 test 脚本添加到集合，文件夹或集合中的单个请求里。与集合相关的 test 脚本将在集合中的每个请求发送之后执行。与文件夹相关的 test 脚本将在文件夹中的每个请求发送之后执行。这样，你就可以在每次发送请求之后执行公共的测试脚本。</p>
+<blockquote>
+<p>将脚本添加到集合和文件夹后，你可以对接口进行流程化测试。这可以确保您的请求覆盖典型场景，从而为用户提供稳定可靠的体验。</p>
+</blockquote>
+<p>你可以通过点击集合或文件夹名字旁边的 … 来查看更多，然后选择编辑 - tests 选项来更新集合和文件夹的脚本。你也可以在首次创建集合时添加集合脚本。</p>
+<p><img src="07.jpg" alt=""></p>
+<p>当你执行一个集合时，你可以在 collection runner 中看到测试结果。</p>
+<p><img src="08.jpg" alt=""></p>
+<p>你可以在脚本中使用分支和循环来控制发送请求的顺序。</p>
+<h1 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h1><p>查看一些测试脚本示例和 Postman API，你可以了解 pm 对象可以执行的操作。你编写的脚本在沙盒环境中运行 - 如果想查看哪些资源是可用的，请查阅文档。</p>
+<p>将测试脚本与 Postman 其它功能结合使用（如：监视器），可以验证接口是否满足性能要求。你还可以使用 CI / CD 来进行自动化测试。</p>
+<p>附上<a href="https://learning.postman.com/docs/postman/scripts/test-scripts/" target="_blank" rel="noopener">官方文档</a>。</p>
 
             </div>
             <hr/>
@@ -387,7 +423,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ascii13.github.io/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/">https://ascii13.github.io/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/</a>
+                    <a href="https://ascii13.github.io/2020/05/20/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-test/">https://ascii13.github.io/2020/05/20/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-test/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -425,8 +461,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                                    <span class="chip bg-color">小程序</span>
+                                <a href="/tags/POSTMAN/">
+                                    <span class="chip bg-color">POSTMAN</span>
                                 </a>
                             
                         </div>
@@ -468,29 +504,80 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-%E7%AE%80%E4%BB%8B/">
+                <a href="/2020/05/20/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-test/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="【译】POSTMAN脚本-简介">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="【译】POSTMAN脚本-test">
                         
-                        <span class="card-title">【译】POSTMAN脚本-简介</span>
+                        <span class="card-title">【译】POSTMAN脚本-test</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Postman有一个基于Node.js的强大运行时机制，该机制允许你动态的向请求和集合中添加操作。
+                            你可以使用JavaScript为Postman API请求编写test脚本
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
+                                    文档翻译
+                                </a>
+                            
+                            
                         </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/POSTMAN/">
+                        <span class="chip bg-color">POSTMAN</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-Pre-request/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="【译】POSTMAN脚本-Pre-request">
+                        
+                        <span class="card-title">【译】POSTMAN脚本-Pre-request</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            你可以在Postman中编写pre-request脚本以便在发送请求之前执行JavaScript
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-18
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -508,56 +595,6 @@
                     
                     <a href="/tags/POSTMAN/">
                         <span class="chip bg-color">POSTMAN</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浅析微信小程序wxs传值undefined">
-                        
-                        <span class="card-title">浅析微信小程序wxs传值undefined</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-11
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
-                                    开发
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
-                        <span class="chip bg-color">小程序</span>
                     </a>
                     
                 </div>

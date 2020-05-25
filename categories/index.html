@@ -205,7 +205,9 @@
 
 <script>
     // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(/medias/banner/3.jpg)');
+    // $('.bg-cover').css('background-image', 'url(/medias/banner/1.jpg)');
+    // 1 - 13之间的随机整数 Math.floor(Math.random() * 10 + 4)
+    $('.bg-cover').css('background-image', 'url(/medias/banner/5.jpg)');
 </script>
 
 
@@ -226,19 +228,19 @@
                 
                 
                 
-                <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" title="文档翻译: 2">
+                <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" title="文档翻译: 3">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
                             style="background-color: #F9EBEA;">文档翻译
-                        <span class="tag-length">2</span>
+                        <span class="tag-length">3</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="小程序: 1">
+                <a href="/categories/%E5%BC%80%E5%8F%91/" title="开发: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">小程序
+                            style="background-color: #F5EEF8;">开发
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -286,7 +288,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"文档翻译","max":3},{"name":"小程序","max":3}],
+            indicator: [{"name":"文档翻译","max":4},{"name":"开发","max":4}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -297,7 +299,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [2,1],
+                    value : [3,1],
                     name : '文章分类数量'
                 }
             ]
@@ -418,8 +420,6 @@ $(function () {
     })();
 </script>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
     
     
     <script async src="/libs/others/busuanzi.pure.mini.js"></script>
