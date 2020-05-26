@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【译】POSTMAN脚本-Pre-request, A Tester&#39;s Blog">
+    <meta name="keywords" content="【译】POSTMAN脚本1-简介, A Tester&#39;s Blog">
     <meta name="description" content="编程 摄影 运动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>【译】POSTMAN脚本-Pre-request | A Tester&#39;s Blog</title>
+    <title>【译】POSTMAN脚本1-简介 | A Tester&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/astronaut.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -175,12 +175,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">【译】POSTMAN脚本-Pre-request</h1>
+                    <h1 class="description center-align post-title">【译】POSTMAN脚本1-简介</h1>
                 </div>
             </div>
         </div>
@@ -322,7 +322,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-18
+                    2020-05-15
                 </div>
                 
 
@@ -338,29 +338,35 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>你可以在Postman中编写pre-request脚本以便在发送请求之前执行JavaScript。通过在请求，集合或者文件夹的pre-request选项卡下添加代码，你可以进行预处理，例如：设置变量，参数，请求头和body体。你还可以使用pre-request脚本来调试代码，例如将日志记录输出到控制台。</p>
-<p>pre-request脚本用法示例如下：</p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Postman拥有一个基于Node.js的强大运行时机制，该机制允许你动态的向请求和集合中添加操作。 这样的话，<br>你就可以编写测试套件（测试用例集合），构建包含动态参数的请求，在请求之间传递数据等。 你可以在一条<br>工作流中的两个事件之间添加可执行的JavaScript代码。</p>
+<ol>
+<li>写在Pre-request Script下的脚本，将在发送该请求之前执行。</li>
+<li>写在Tests下的脚本，将在请求完成之后执行。</li>
+</ol>
+<p><img src="01.png" alt=""></p>
+<p>你可以将pre-request脚本和tests脚本添加到集合，文件夹，集合中的请求或者是单独的请求中。</p>
+<h1 id="脚本的执行顺序"><a href="#脚本的执行顺序" class="headerlink" title="脚本的执行顺序"></a>脚本的执行顺序</h1><p>在Postman中，单个请求的脚本执行顺序如下所示：</p>
 <ul>
-<li>如果你在一个集合中有一系列的请求并且想按顺序执行它们，可以使用collection runner。</li>
-<li>第二个请求可以依赖第一个请求的返回值。</li>
-<li>在将一个值传递给第二个请求之前，你可以对其进行处理。</li>
-<li>第一个请求可以将其返回值的字段设置为一个变量，使其在tests脚本中使用。</li>
-<li>第二个请求可以获取到这个值并在其pre-request脚本中进行处理，然后将处理后的值设置为变量（在第二个请求中引用，例如：在自身的参数中）</li>
+<li>pre-request脚本在发送请求之前执行</li>
+<li>tests脚本在请求完成之后执行</li>
 </ul>
-<h1 id="在发送请求前编写脚本"><a href="#在发送请求前编写脚本" class="headerlink" title="在发送请求前编写脚本"></a>在发送请求前编写脚本</h1><p>点击要发送的请求，然后选择pre-request script选项，在里边编写你想在Postman发送请求之前执行的代码。</p>
-<p><img src="01.jpg" alt=""></p>
-<p><img src="02.jpg" alt=""></p>
-<p>当你点击发送时，代码将会在Postman将请求发送到API之前执行。</p>
-<h1 id="pre-request脚本复用"><a href="#pre-request脚本复用" class="headerlink" title="pre-request脚本复用"></a>pre-request脚本复用</h1><p>你可以将pre-request脚本添加到整个集合以及集合中的文件夹里。在这两种情况下，你的pre-request脚本将在集合或文件夹中的每一个请求发送前执行。这可以让你定义对多个请求执行所需的常用预处理或调试步骤。</p>
-<p>要将预处理添加到一组请求中，请在Postman应用程序左侧的“collections”中找到集合或文件夹，单击…查看更多选项，然后选择编辑。</p>
-<p><img src="03.jpg" alt=""></p>
-<p>打开pre-request script选项输入想要在集合或文件夹中的每个请求之前运行的代码。</p>
-<p><img src="04.jpg" alt=""></p>
-<blockquote>
-<p>你可以在首次创建集合或文件夹的时候或者是之后的任意时间编写pre-request脚本。</p>
-</blockquote>
-<h1 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h1><p>有关可以在pre-request脚本中执行的更多操作详情，请查看“测试脚本”和”Postman沙盒“。如果想了解当你在发送请求时脚本的变化，请查看脚本的执行顺序。</p>
-<p>附上<a href="https://learning.postman.com/docs/postman/scripts/pre-request-scripts/" target="_blank" rel="noopener">官方文档</a>。</p>
+<p><img src="02.png" alt=""></p>
+<p>对于一个集合中的每个请求，脚本将按以下顺序执行：</p>
+<ul>
+<li>与集合有关联的pre-request脚本将在该集合内的每一个请求之前执行。</li>
+<li>与文件夹有关联的pre-request脚本将在该文件夹内的每一个请求之前执行。</li>
+<li>与集合有关联的tests脚本将在该集合内的每一个请求之后执行。</li>
+<li>与文件夹有关联的tests脚本将在该文件夹内的每一个请求之后执行。</li>
+</ul>
+<p><img src="03.png" alt=""></p>
+<p>对于集合中的每个请求，脚本将始终根据以下层次结构运行：集合级脚本（如果有），文件夹级脚本（如果有），<br>请求级脚本（如果有）。 请注意，此执行顺序适用于pre-request脚本和tests脚本。</p>
+<p>例如，你有一个集合，该集合下有一个文件夹，文件夹下有两个请求，如下图：</p>
+<p><img src="04.png" alt=""></p>
+<p>如果你在集合，文件夹和请求的pre-request脚本和tests脚本中添加了日志，你可以在Postman的控制台<br>中清楚的看到执行顺序。</p>
+<p><img src="05.png" alt=""></p>
+<h1 id="如何运行"><a href="#如何运行" class="headerlink" title="如何运行"></a>如何运行</h1><p>Postman沙盒是一个JavaScript执行环境，你可以在编写请求的pre-request脚本和tests脚本时使用（Postman<br>和Newman都可以）。你在这些部分中编写的任何代码都将在沙盒中执行。</p>
+<h1 id="脚本调试"><a href="#脚本调试" class="headerlink" title="脚本调试"></a>脚本调试</h1><p>调试脚本可以在Pre-request Script选项卡或Tests选项卡下编写并在Postman Console中展示相关信息。</p>
+<h1 id="题外"><a href="#题外" class="headerlink" title="题外"></a>题外</h1><p>由于自己是第一次进行外文文档翻译，受限于英文水平，翻译时会尽力达到“信达雅”，如觉有不妥或难以理解<br>之处，可查看<a href="https://learning.postman.com/docs/postman/scripts/intro-to-scripts/" target="_blank" rel="noopener">官方文档</a>。在日后的文档翻译中，相信自己的翻译能力会逐渐提高。</p>
 
             </div>
             <hr/>
@@ -386,7 +392,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ascii13.github.io/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-Pre-request/">https://ascii13.github.io/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-Pre-request/</a>
+                    <a href="https://ascii13.github.io/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC1-%E7%AE%80%E4%BB%8B/">https://ascii13.github.io/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC1-%E7%AE%80%E4%BB%8B/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -471,24 +477,24 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/20/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-test/">
+                <a href="/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC2-Pre-request/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="【译】POSTMAN脚本-test">
+                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="【译】POSTMAN脚本2-Pre-request">
                         
-                        <span class="card-title">【译】POSTMAN脚本-test</span>
+                        <span class="card-title">【译】POSTMAN脚本2-Pre-request</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            你可以使用JavaScript为Postman API请求编写test脚本
+                            你可以在Postman中编写pre-request脚本以便在发送请求之前执行JavaScript
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-20
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-18
                         </span>
                         <span class="publish-author">
                             
@@ -520,31 +526,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91POSTMAN%E8%84%9A%E6%9C%AC-%E7%AE%80%E4%BB%8B/">
+                <a href="/2020/05/11/%E6%B5%85%E6%9E%90%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fwxs%E4%BC%A0%E5%80%BCundefined/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="【译】POSTMAN脚本-简介">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="浅析微信小程序wxs传值undefined">
                         
-                        <span class="card-title">【译】POSTMAN脚本-简介</span>
+                        <span class="card-title">浅析微信小程序wxs传值undefined</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Postman有一个基于Node.js的强大运行时机制，该机制允许你动态的向请求和集合中添加操作。
+                            在一次代码重构中，发现有一个样式在多处都有应用，因此将其抽离出来，写成了template，然后在不同的地方调用，提高代码复用率。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-11
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
-                                    文档翻译
+                            <a href="/categories/%E5%BC%80%E5%8F%91/" class="post-category">
+                                    开发
                                 </a>
                             
                             
@@ -554,8 +560,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/POSTMAN/">
-                        <span class="chip bg-color">POSTMAN</span>
+                    <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                        <span class="chip bg-color">小程序</span>
                     </a>
                     
                 </div>
