@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="【译】Postman脚本2-Pre-request, A Tester&#39;s Blog">
+    <meta name="keywords" content="CentOS 7.5 搭建 Django 踩坑实录, A Tester&#39;s Blog">
     <meta name="description" content="编程 摄影 运动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>【译】Postman脚本2-Pre-request | A Tester&#39;s Blog</title>
+    <title>CentOS 7.5 搭建 Django 踩坑实录 | A Tester&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/astronaut.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -175,12 +175,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">【译】Postman脚本2-Pre-request</h1>
+                    <h1 class="description center-align post-title">CentOS 7.5 搭建 Django 踩坑实录</h1>
                 </div>
             </div>
         </div>
@@ -297,8 +297,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Postman/">
-                                <span class="chip bg-color">Postman</span>
+                            <a href="/tags/Django/">
+                                <span class="chip bg-color">Django</span>
                             </a>
                         
                     </div>
@@ -309,8 +309,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
-                                文档翻译
+                            <a href="/categories/service/" class="post-category">
+                                service
                             </a>
                         
                     </div>
@@ -322,7 +322,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-18
+                    2020-06-02
                 </div>
                 
 
@@ -338,29 +338,22 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>你可以在Postman中编写pre-request脚本以便在发送请求之前执行JavaScript。通过在请求，集合或者文件夹的pre-request选项卡下添加代码，你可以进行预处理，例如：设置变量，参数，请求头和body体。你还可以使用pre-request脚本来调试代码，例如将日志记录输出到控制台。</p>
-<p>pre-request脚本用法示例如下：</p>
-<ul>
-<li>如果你在一个集合中有一系列的请求并且想按顺序执行它们，可以使用collection runner。</li>
-<li>第二个请求可以依赖第一个请求的返回值。</li>
-<li>在将一个值传递给第二个请求之前，你可以对其进行处理。</li>
-<li>第一个请求可以将其返回值的字段设置为一个变量，使其在tests脚本中使用。</li>
-<li>第二个请求可以获取到这个值并在其pre-request脚本中进行处理，然后将处理后的值设置为变量（在第二个请求中引用，例如：在自身的参数中）</li>
-</ul>
-<h1 id="在发送请求前编写脚本"><a href="#在发送请求前编写脚本" class="headerlink" title="在发送请求前编写脚本"></a>在发送请求前编写脚本</h1><p>点击要发送的请求，然后选择pre-request script选项，在里边编写你想在Postman发送请求之前执行的代码。</p>
-<p><img src="01.jpg" alt=""></p>
-<p><img src="02.jpg" alt=""></p>
-<p>当你点击发送时，代码将会在Postman将请求发送到API之前执行。</p>
-<h1 id="pre-request脚本复用"><a href="#pre-request脚本复用" class="headerlink" title="pre-request脚本复用"></a>pre-request脚本复用</h1><p>你可以将pre-request脚本添加到整个集合以及集合中的文件夹里。在这两种情况下，你的pre-request脚本将在集合或文件夹中的每一个请求发送前执行。这可以让你定义对多个请求执行所需的常用预处理或调试步骤。</p>
-<p>要将预处理添加到一组请求中，请在Postman应用程序左侧的“collections”中找到集合或文件夹，单击…查看更多选项，然后选择编辑。</p>
-<p><img src="03.jpg" alt=""></p>
-<p>打开pre-request script选项输入想要在集合或文件夹中的每个请求之前运行的代码。</p>
-<p><img src="04.jpg" alt=""></p>
-<blockquote>
-<p>你可以在首次创建集合或文件夹的时候或者是之后的任意时间编写pre-request脚本。</p>
-</blockquote>
-<h1 id="下一步"><a href="#下一步" class="headerlink" title="下一步"></a>下一步</h1><p>有关可以在pre-request脚本中执行的更多操作详情，请查看“测试脚本”和”Postman沙盒“。如果想了解当你在发送请求时脚本的变化，请查看脚本的执行顺序。</p>
-<p>附上<a href="https://learning.postman.com/docs/postman/scripts/pre-request-scripts/" target="_blank" rel="noopener">官方文档</a>。</p>
+                <p>本文并不是一篇如何在 CentOS7 上搭建 Django 的教程，仅记录一些从搭建到成功访问遇到的一些问题以及相应的解决方案，希望能给遇到同样或类似问题的同僚提供一些帮助。</p>
+<h1 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h1><p>服务器：腾讯云 CentOS 7.5</p>
+<p>Django：3.0.6</p>
+<h1 id="firewalld-相关"><a href="#firewalld-相关" class="headerlink" title="firewalld 相关"></a><code>firewalld</code> 相关</h1><h2 id="使用-firewall-cmd-报错-from-gi-repository-import-GObject-ModuleNotFoundError-No-module-named-39-gi-39"><a href="#使用-firewall-cmd-报错-from-gi-repository-import-GObject-ModuleNotFoundError-No-module-named-39-gi-39" class="headerlink" title="使用 firewall-cmd 报错 from gi.repository import GObject ModuleNotFoundError: No module named &#39;gi&#39;"></a>使用 <code>firewall-cmd</code> 报错 <code>from gi.repository import GObject ModuleNotFoundError: No module named &#39;gi&#39;</code></h2><p>原因：CentOS7 不再使用 <code>iptables</code> 而是使用 <code>firewalld</code> ，但是 <code>firewalld</code> 只支持 <code>Python2</code> ，由于之前已经升级了<code>Python3</code> 并且更新了<code>python</code>命令软连接，所以无法正常运行。</p>
+<p>解决方案：修改 <code>/usr/bin/firewall-cmd</code> 和 <code>/usr/sbin/firewalld</code> 文件中 <code>python</code>环境的指向。修改后截图如下：</p>
+<p><img src="01.png" alt=""></p>
+<h2 id="FirewallD-is-not-running"><a href="#FirewallD-is-not-running" class="headerlink" title="FirewallD is not running"></a><code>FirewallD is not running</code></h2><p>原因：防火墙未开启</p>
+<p>解决方案：<code>systemctl start firewalld</code> 开启防火墙，通过 <code>systemctl status firewalld</code> 可查看防火墙状态。</p>
+<h1 id="使用公网-ip-无法访问"><a href="#使用公网-ip-无法访问" class="headerlink" title="使用公网 ip 无法访问"></a>使用公网 ip 无法访问</h1><p>无法访问时，检查以下配置：</p>
+<ol>
+<li>Django 项目中 <code>setting.py</code> 中 <code>ALLOWED_HOSTS</code> 是否添加，如未添加，请加入自己服务器的公网 ip。</li>
+<li>服务器防火墙是否开启，如 <code>iptables</code> 和<code>firewalld</code> 都关闭则可不用配置开放端口，我自己使用的是 <code>firewalld</code> ，所以需要开放端口。</li>
+<li>腾讯云安全组中是否已添加开放端口的规则 。</li>
+</ol>
+<p>如以上三点均检查无误且执行<code>python manager.py runserver 0:xxxx</code> （xxxx为开放的端口号），则可以使用浏览器通过公网 ip 访问已启动的Django服务。</p>
+<p>注：建议不使用80端口作为开放端口，腾讯云中80端口需要备案才能访问，自己之前在这个地方坑了好几个小时，各种配置检查都没有问题，但就是访问不了，后来更换了其它端口瞬间访问成功，巨坑无比！！</p>
 
             </div>
             <hr/>
@@ -386,7 +379,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ascii13.github.io/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC2-Pre-request/">https://ascii13.github.io/2020/05/18/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC2-Pre-request/</a>
+                    <a href="https://ascii13.github.io/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/">https://ascii13.github.io/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -424,8 +417,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Postman/">
-                                    <span class="chip bg-color">Postman</span>
+                                <a href="/tags/Django/">
+                                    <span class="chip bg-color">Django</span>
                                 </a>
                             
                         </div>
@@ -467,46 +460,48 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/20/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC3-test/">
+                <a href="/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="【译】Postman脚本3-test">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="CentOS 7.5 搭建 Django 踩坑实录">
                         
-                        <span class="card-title">【译】Postman脚本3-test</span>
+                        <span class="card-title">CentOS 7.5 搭建 Django 踩坑实录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            你可以使用 JavaScript 为 Postman 接口请求编写 test 脚本
+                            文本记录了一些从搭建到成功访问遇到的一些问题以及相应的解决方案
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-20
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
-                                    文档翻译
+                            <a href="/categories/service/" class="post-category">
+                                    service
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Postman/">
-                        <span class="chip bg-color">Postman</span>
+                    <a href="/tags/Django/">
+                        <span class="chip bg-color">Django</span>
                     </a>
                     
                 </div>
@@ -520,24 +515,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/15/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC1-%E7%AE%80%E4%BB%8B/">
+                <a href="/2020/05/26/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC5-%E5%88%86%E6%94%AF%E5%92%8C%E5%BE%AA%E7%8E%AF/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="【译】Postman脚本1-简介">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="【译】Postman脚本5-分支和循环">
                         
-                        <span class="card-title">【译】Postman脚本1-简介</span>
+                        <span class="card-title">【译】Postman脚本5-分支和循环</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Postman有一个基于Node.js的强大运行时机制，该机制允许你动态的向请求和集合中添加操作
+                            可以使用 setNextRequest("request_name")在 Postman 的接口请求之间进行分支和循环
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-26
                             </span>
                         <span class="publish-author">
                             

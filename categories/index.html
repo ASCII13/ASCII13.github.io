@@ -207,7 +207,7 @@
     // 每天切换 banner 图.  Switch banner image every day.
     // $('.bg-cover').css('background-image', 'url(/medias/banner/2.jpg)');
     // 1 - 13之间的随机整数 Math.floor(Math.random() * 10 + 4)
-    $('.bg-cover').css('background-image', 'url(/medias/banner/10.jpg)');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/13.jpg)');
 </script>
 
 
@@ -237,10 +237,19 @@
                 </a>
                 
                 
-                <a href="/categories/%E5%BC%80%E5%8F%91/" title="开发: 1">
+                <a href="/categories/service/" title="service: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">开发
+                            style="background-color: #F5EEF8;">service
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/code/" title="code: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">code
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -288,7 +297,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"文档翻译","max":6},{"name":"开发","max":6}],
+            indicator: [{"name":"文档翻译","max":6},{"name":"service","max":6},{"name":"code","max":6}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -299,7 +308,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [5,1],
+                    value : [5,1,1],
                     name : '文章分类数量'
                 }
             ]
