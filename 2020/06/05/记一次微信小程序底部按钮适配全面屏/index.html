@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="CentOS 7.5 搭建 Django 踩坑实录, A Tester&#39;s Blog">
+    <meta name="keywords" content="记一次微信小程序底部按钮适配全面屏, A Tester&#39;s Blog">
     <meta name="description" content="编程 摄影 运动">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>CentOS 7.5 搭建 Django 踩坑实录 | A Tester&#39;s Blog</title>
+    <title>记一次微信小程序底部按钮适配全面屏 | A Tester&#39;s Blog</title>
     <link rel="icon" type="image/png" href="/astronaut.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -175,12 +175,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">CentOS 7.5 搭建 Django 踩坑实录</h1>
+                    <h1 class="description center-align post-title">记一次微信小程序底部按钮适配全面屏</h1>
                 </div>
             </div>
         </div>
@@ -297,8 +297,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Django/">
-                                <span class="chip bg-color">Django</span>
+                            <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                <span class="chip bg-color">小程序</span>
                             </a>
                         
                     </div>
@@ -309,8 +309,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/service/" class="post-category">
-                                service
+                            <a href="/categories/code/" class="post-category">
+                                code
                             </a>
                         
                     </div>
@@ -322,7 +322,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-02
+                    2020-06-05
                 </div>
                 
 
@@ -338,22 +338,32 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>本文并不是一篇如何在 CentOS7 上搭建 Django 的教程，仅记录一些从搭建到成功访问遇到的一些问题以及相应的解决方案，希望能给遇到同样或类似问题的同僚提供一些帮助。</p>
-<h1 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h1><p>服务器：腾讯云 CentOS 7.5</p>
-<p>Django：3.0.6</p>
-<h1 id="firewalld-相关"><a href="#firewalld-相关" class="headerlink" title="firewalld 相关"></a><code>firewalld</code> 相关</h1><h2 id="使用-firewall-cmd-报错-from-gi-repository-import-GObject-ModuleNotFoundError-No-module-named-39-gi-39"><a href="#使用-firewall-cmd-报错-from-gi-repository-import-GObject-ModuleNotFoundError-No-module-named-39-gi-39" class="headerlink" title="使用 firewall-cmd 报错 from gi.repository import GObject ModuleNotFoundError: No module named &#39;gi&#39;"></a>使用 <code>firewall-cmd</code> 报错 <code>from gi.repository import GObject ModuleNotFoundError: No module named &#39;gi&#39;</code></h2><p>原因：CentOS7 不再使用 <code>iptables</code> 而是使用 <code>firewalld</code> ，但是 <code>firewalld</code> 只支持 <code>Python2</code> ，由于之前已经升级了<code>Python3</code> 并且更新了<code>python</code>命令软连接，所以无法正常运行。</p>
-<p>解决方案：修改 <code>/usr/bin/firewall-cmd</code> 和 <code>/usr/sbin/firewalld</code> 文件中 <code>python</code>环境的指向。修改后截图如下：</p>
+                <p>在我的微信小程序项目 <a href="https://github.com/ASCII13/WanAndroid" target="_blank" rel="noopener">WanAndroid</a> 中有这样一个页面：</p>
 <p><img src="01.png" alt=""></p>
-<h2 id="FirewallD-is-not-running"><a href="#FirewallD-is-not-running" class="headerlink" title="FirewallD is not running"></a><code>FirewallD is not running</code></h2><p>原因：防火墙未开启</p>
-<p>解决方案：<code>systemctl start firewalld</code> 开启防火墙，通过 <code>systemctl status firewalld</code> 可查看防火墙状态。</p>
-<h1 id="使用公网-ip-无法访问"><a href="#使用公网-ip-无法访问" class="headerlink" title="使用公网 ip 无法访问"></a>使用公网 ip 无法访问</h1><p>无法访问时，检查以下配置：</p>
+<p>创建按钮固定页面底部展示，这样的布局，在正常手机上不会有什么问题，如：iPhone7，8上，但是在屏幕底部带有操作条的手机上，如 iphoneX，iPhoneXR等，按钮会与操作条重叠，这样一来，会有以下几个问题：</p>
 <ol>
-<li>Django 项目中 <code>setting.py</code> 中 <code>ALLOWED_HOSTS</code> 是否添加，如未添加，请加入自己服务器的公网 ip。</li>
-<li>服务器防火墙是否开启，如 <code>iptables</code> 和<code>firewalld</code> 都关闭则可不用配置开放端口，我自己使用的是 <code>firewalld</code> ，所以需要开放端口。</li>
-<li>腾讯云安全组中是否已添加开放端口的规则 。</li>
+<li>UI 样式不美观，操作条可能会遮挡文字</li>
+<li>在点击按钮的时候，可能会误触发系统的手势操作</li>
 </ol>
-<p>如以上三点均检查无误且执行<code>python manage.py runserver 0:xxxx</code> （xxxx为开放的端口号），则可以使用浏览器通过公网 ip 访问已启动的Django服务。</p>
-<p>注：建议不使用80端口作为开放端口，腾讯云中80端口需要备案才能访问，自己之前在这个地方坑了好几个小时，各种配置检查都没有问题，但就是访问不了，后来更换了其它端口瞬间访问成功，巨坑无比！！</p>
+<p>在这种情况下，就必须针对类似机型，搞一波适配。</p>
+<p>之前我自己使用的方案是在 <code>app.js</code> 的  <code>onLanuch</code> 方法中，使用 <code>wx.getSystemInfo</code> 方法获取设备信息，然后通过计算屏幕分辨率来判断当前设备是否是全面屏，之后在需要适配的页面再次进行相关处理。</p>
+<p>这个方案略微有些繁琐，但说实话，我一直以为这是目前比较好的适配方案了。直到上周我接手了一个测试需求，其中的一个页面也涉及到了按钮屏幕吸底，抱着学习和测试的双重目的，我 <code>clone</code> 了项目工程，查看了相应的代码，但令我意外的是，我并没有看到料想中的代码片段，而仅在对应页面的 <code>CSS</code> 文件中看到如下寥寥几行：</p>
+<pre class=" language-css"><code class="language-css"><span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token number">100</span>vh - <span class="token number">184</span>rpx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token number">100</span>vh - <span class="token number">184</span>rpx - <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p><code>env(safe-area-inset-bottom)</code> 是个什么东西？看起来挺像 <code>var</code>函数的。就这一行就能解决适配？拿模拟器调试了一波，确实是生效的，又找了几个真机，分别测试了一下，结果是：<strong>好用！！</strong></p>
+<p><strong>呀，牛逼！</strong>！</p>
+<p>去 <code>MDN</code> 查看了一波<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/env" target="_blank" rel="noopener">文档</a>，看到如下内容：</p>
+<blockquote>
+<p> <strong><code>env()</code></strong> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener">CSS</a> 函数以类似于 <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/var" target="_blank" rel="noopener"><code>var</code></a> 函数和 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/--*" target="_blank" rel="noopener">custom properties</a> 的方式将用户代理定义的环境变量值插入你的 CSS 中。区别在于，环境变量除了由用户代理定义而不是由用户定义外，还被全局作用在文档中，而自定义属性则限定在声明它们的元素中。</p>
+</blockquote>
+<blockquote>
+<p>最初由iOS浏览器提供，用于允许开发人员将其内容放置在视口的安全区域中，该规范中定义的<code>safe-area-inset-*</code>值可用于确保内容即使在非矩形的视区中也可以完全显示。</p>
+</blockquote>
+<p>这个 <code>CSS</code> 标准最早还是由 <code>iOS</code> 浏览器提供的？众所周知，<code>Safari</code> 使用的内核是 <code>WebKit</code>，那 <code>WebKit</code> 中应该也会有<a href="https://webkit.org/blog/7929/designing-websites-for-iphone-x/" target="_blank" rel="noopener">相关文档</a></p>
+<p>从文档中可以得知，iOS11 中新增了 <code>constant()</code> ，但是从 iOS11.2 开始，<code>env()</code> 又取代了<code>constant()</code>。 </p>
+<p>了解详情之后，看来得对项目做一波优化，把之前方案的逻辑全部删除，然后在页面 <code>CSS</code> 中对创建按钮增加如下样式即可</p>
+<pre class=" language-css"><code class="language-css"><span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">constant</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
             </div>
             <hr/>
@@ -379,7 +389,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://ascii13.github.io/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/">https://ascii13.github.io/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/</a>
+                    <a href="https://ascii13.github.io/2020/06/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BA%95%E9%83%A8%E6%8C%89%E9%92%AE%E9%80%82%E9%85%8D%E5%85%A8%E9%9D%A2%E5%B1%8F/">https://ascii13.github.io/2020/06/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BA%95%E9%83%A8%E6%8C%89%E9%92%AE%E9%80%82%E9%85%8D%E5%85%A8%E9%9D%A2%E5%B1%8F/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -417,8 +427,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Django/">
-                                    <span class="chip bg-color">Django</span>
+                                <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
+                                    <span class="chip bg-color">小程序</span>
                                 </a>
                             
                         </div>
@@ -460,9 +470,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/06/05/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%BA%95%E9%83%A8%E6%8C%89%E9%92%AE%E9%80%82%E9%85%8D%E5%85%A8%E9%9D%A2%E5%B1%8F/">
                     <div class="card-image">
@@ -480,9 +491,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-05
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-05
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -495,6 +506,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -513,31 +525,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/26/%E3%80%90%E8%AF%91%E3%80%91Postman%E8%84%9A%E6%9C%AC5-%E5%88%86%E6%94%AF%E5%92%8C%E5%BE%AA%E7%8E%AF/">
+                <a href="/2020/06/02/CentOS7%E6%90%AD%E5%BB%BADjango%E8%B8%A9%E5%9D%91%E5%AE%9E%E5%BD%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="【译】Postman脚本5-分支和循环">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="CentOS 7.5 搭建 Django 踩坑实录">
                         
-                        <span class="card-title">【译】Postman脚本5-分支和循环</span>
+                        <span class="card-title">CentOS 7.5 搭建 Django 踩坑实录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            可以使用 setNextRequest("request_name")在 Postman 的接口请求之间进行分支和循环
+                            文本记录了一些从搭建到成功访问遇到的一些问题以及相应的解决方案
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-26
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-02
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91/" class="post-category">
-                                    文档翻译
+                            <a href="/categories/service/" class="post-category">
+                                    service
                                 </a>
                             
                             
@@ -547,8 +559,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Postman/">
-                        <span class="chip bg-color">Postman</span>
+                    <a href="/tags/Django/">
+                        <span class="chip bg-color">Django</span>
                     </a>
                     
                 </div>
